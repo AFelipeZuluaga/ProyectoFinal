@@ -48,14 +48,14 @@
    <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>120</x>
+      <x>100</x>
       <y>30</y>
       <width>1091</width>
       <height>771</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="page">
      <widget class="QLabel" name="label">
@@ -215,6 +215,35 @@
        <string>Menu inicial</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="boton_esfera">
+      <property name="geometry">
+       <rect>
+        <x>530</x>
+        <y>625</y>
+        <width>41</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Esfera</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton">
+      <property name="geometry">
+       <rect>
+        <x>390</x>
+        <y>510</y>
+        <width>331</width>
+        <height>251</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>PushButton</string>
+      </property>
+     </widget>
+     <zorder>pushButton</zorder>
+     <zorder>Inicio1</zorder>
+     <zorder>boton_esfera</zorder>
     </widget>
     <widget class="QWidget" name="page_3">
      <widget class="QPushButton" name="Inicio2">
