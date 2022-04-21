@@ -18,7 +18,10 @@
 #include <QPixmap>
 #include "esfera_lanzada.h"
 #include "esferas.h"
-
+#include <QDesktopWidget>
+#include <QDebug>
+#include <Windows.h>
+#include <conio.h>
 
 
 QT_BEGIN_NAMESPACE
@@ -34,6 +37,8 @@ public:
     ~MainWindow();
 
 private slots:
+
+public slots:
     //void on_pushButton_clicked();
 
     void on_Nivel1_clicked();
@@ -45,7 +50,8 @@ private slots:
 
     void on_Salir_clicked();
 
-
+    void juguemos();
+    void crear_bola_lanzada();
 
 private:
     Ui::MainWindow *ui;
@@ -55,8 +61,19 @@ private:
     QGraphicsEllipseItem* centro;
     esfera_lanzada* bola_lanz1;
     esferas* bolas[936];
-
+    QTimer *timer;
 
         float x,y,ancho,alto;
+
+        bool moverA;
+        bool moverS;
+        bool moverD;
+        bool moverZ;
+        bool moverP;
+        bool resorte;
+        bool crear_bola_lanz1;
+
+        void keyPressEvent(QKeyEvent *ev);
+        void keyReleaseEvent(QKeyEvent *ev);
 };
 #endif // MAINWINDOW_H

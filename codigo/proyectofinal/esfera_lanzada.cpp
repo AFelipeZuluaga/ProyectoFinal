@@ -1,6 +1,6 @@
 #include "esfera_lanzada.h"
 
-esfera_lanzada::esfera_lanzada(double _x, double _y, double _vx, double _vy, double _ax, double _ay)
+esfera_lanzada::esfera_lanzada(double _x, double _y, double _vx, double _vy, double _ax, double _ay, string color)
 {
     X=_x;
     Y=_y;
@@ -8,6 +8,7 @@ esfera_lanzada::esfera_lanzada(double _x, double _y, double _vx, double _vy, dou
     VY=_vy;
     VX=_ax;
     VY=_ay;
+    Color=color;
 }
 
 QRectF esfera_lanzada::boundingRect() const{
@@ -16,7 +17,25 @@ QRectF esfera_lanzada::boundingRect() const{
 
 
 void esfera_lanzada::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *){
-    painter->setBrush(Qt::yellow);
+
+    if(Color=="yellow"){
+        painter->setBrush(Qt::yellow);
+    }
+    if(Color=="red"){
+        painter->setBrush(Qt::red);
+    }
+    if(Color=="blue"){
+        painter->setBrush(Qt::blue);
+    }
+    if(Color=="green"){
+        painter->setBrush(Qt::green);
+    }
+    if(Color=="magenta"){
+        painter->setBrush(Qt::magenta);
+    }
+    if(Color=="cyan"){
+        painter->setBrush(Qt::cyan);
+    }
     painter->drawEllipse(boundingRect());
 }
 
@@ -40,6 +59,9 @@ double esfera_lanzada::getAY() const{
 double esfera_lanzada::getAX() const{
     return AX;
 }
+string esfera_lanzada::getColor() const{
+    return Color;
+}
 
 
 //funciones para los set
@@ -61,29 +83,31 @@ void esfera_lanzada::setAX(double value){
 void esfera_lanzada::setAY(double value){
     AY = value;
 }
-
+void esfera_lanzada::setColor(string value){
+    Color = value;
+}
 
 //funciones de movimiento
 
 void esfera_lanzada::aceleracion()
 {
     AX += 0;
-    AY += 0;
+    AY = AY+grav;           //ay: +
     //ay = GRAV;
 }
 
 void esfera_lanzada::velocidades()
 // calcula las aceleraciones
 {
-    VX = VX + (AX);
-    VY = VY + (AY);
+    VX = VX + (AX)*dt;
+    VY = VY + (AY)*dt;  //vy: +
 }
 
 void esfera_lanzada::posiciones()
 // calcula y Actualiza las posiciones
 {
-    X = X + (VX) + (0.5 * AX);
-    Y = Y + (VY) + (0.5 * AY);
+    X = X + (VX) *dt+ (0.5 * AX)*dt*dt;
+    Y = Y + (VY) *dt+ (0.5 * AY)*dt*dt;     //y:+, entonces baja
 
     // sin ajustar los cuadrantes
     // setPos((x/EX), (y/EY));

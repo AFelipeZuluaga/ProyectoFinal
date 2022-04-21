@@ -1,10 +1,18 @@
 #ifndef ESFERA_LANZADA_H
 #define ESFERA_LANZADA_H
 
-//#define g -9.8
+#define grav -9.8
+#define dt 0.001
 
 #include <QGraphicsItem>
 #include <QPainter>
+
+using namespace std;
+
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <cstdlib>
 
 class esfera_lanzada : public QGraphicsItem
 {
@@ -15,9 +23,10 @@ private:
     double VY;
     double AX;
     double AY;
+    string Color;
 public:
     esfera_lanzada();
-    esfera_lanzada(double _x, double _y, double _vx, double _vy, double _ax, double _ay);
+    esfera_lanzada(double _x, double _y, double _vx, double _vy, double _ax, double _ay, string color);
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
@@ -27,14 +36,15 @@ public:
     double getVY() const;
     double getAX() const;
     double getAY() const;
+    string getColor() const;
 
     void setX(double value);
     void setY(double value);
     void setVX(double value);
     void setVY(double value);
     void setAX(double value);
-    void setAY(double value);
-
+    void setAY(double value);    
+    void setColor(string value);
 
     // Funciones mvto
     void aceleracion();

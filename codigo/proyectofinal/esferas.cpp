@@ -24,7 +24,7 @@ esferas::esferas(double _x, double _y, double _vx, double _vy, double _ax, doubl
 }
 
 QRectF esferas::boundingRect() const{
-    return QRectF(X-20,Y-20,40,40);       //radio de 2
+    return QRectF(X-20,Y-20,40,40);       //radio de 20
 }
 
 
