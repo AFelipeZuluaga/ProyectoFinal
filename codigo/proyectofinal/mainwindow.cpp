@@ -203,9 +203,6 @@ void MainWindow::juguemos(){
 
 
     int o=0;
-    //while(moverA || moverD || moverS || moverZ){
-  //      bolas[1]->setY(30.0);
-
 
     double posi=0;
     if(moverA)
@@ -284,14 +281,9 @@ void MainWindow::juguemos(){
             }
 */
         //Si bola lanzada sale del tablero, que vuelva a la posición inicial con los parámetros iniciales
-        if(900<bola_lanz1->getY() || bola_lanz1->getY()<0){
+        if(900<bola_lanz1->getY() || bola_lanz1->getY()<-20){
             //Inicio: bola:lanz1(545, 650)
-            bola_lanz1->setAX(0);
-            bola_lanz1->setAY(0);
-            bola_lanz1->setVX(0);
-            bola_lanz1->setVY(0);
-            bola_lanz1->setX(545);
-            bola_lanz1->setY(650);
+            crear_bola_lanz1=true;
             moverP=false;
         }
 
