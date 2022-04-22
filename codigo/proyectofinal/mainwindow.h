@@ -38,6 +38,7 @@ public:
 
 private slots:
 
+
 public slots:
     //void on_pushButton_clicked();
 
@@ -69,6 +70,7 @@ private:
 
         float x,y,ancho,alto;
 
+        int puntuacion=0;
         bool moverA;
         bool moverS;
         bool moverD;

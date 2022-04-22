@@ -46,6 +46,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->graphicsView->setScene(scene);
 
+
 //    QPushButton* N1= new QPushButton();
 //    scene->addItem(N1);
 
@@ -208,6 +209,9 @@ void MainWindow::Actualizar(){
 
         actualiza=false;
     }
+
+    ui->lcdNumber->display(puntuacion);
+
 }
 
 void MainWindow::juguemos(){
@@ -346,51 +350,126 @@ void MainWindow::juguemos(){
              color1=bola_lanz1->getColor();
              cout<<"color1"<<color1<<endl;
 
-          /*    color2=bolas[num_bola]->getColor();
-              cout<<"color2"<<color2<<endl;
-*/
-/*
-              if(bola_lanz1->getColor()==bolas[num_bola]->getColor()){
-                  cout<<"Reconoce los colores"<<endl;
-                 bolas[num_bola]->setAY(-9.8);
-                  bola_lanz1->setX(0);
-                  bola_lanz1->setY(0);
-                  bola_lanz1->setVX(0);
-                  bola_lanz1->setVY(0);
-                  bola_lanz1->setAX(0);
-                  bola_lanz1->setAY(-1);
-                  cout<<"Los colores son iguales!!"<<endl;
-              }
-*/
+             if(bola_lanz1->getColor()=="blue"){
+                 cout<<"Si reconoce el color. "<<endl;
+                 cout<<"numero de la matriz: "<<matriz1[posy_matr][(posx_matr*2)];
+                 if(matriz1[posy_matr][(posx_matr*2)]==1){
 
-/*
-              if(bola_lanz1->getColor()=="blue"){
-            if(matriz1[posy_matr][posx_matr]==1){
-                num_bola=48*posy_matr+posx_matr;
-            }
+                     num_bola=48*posy_matr+posx_matr;
+                  //   bolas[num_bola]->setAY(-9.8);
+                     bola_lanz1->setVX(-bola_lanz1->getVX());
+                     bola_lanz1->setVY(-bola_lanz1->getVY());
+                     bola_lanz1->setAX(0);
+                     bola_lanz1->setAY(0);
+                     cout<<"Reconoce el 6"<<endl;
 
-        }
-*/
-        if(bola_lanz1->getColor()=="magenta"){
-            cout<<"Si reconoce el color. "<<endl;
-            cout<<"numero de la matriz: "<<matriz1[posy_matr][(posx_matr*2)-1];
-            if(matriz1[posy_matr][(posx_matr*2)]==6){
+                     puntuacion++;
 
-                num_bola=48*posy_matr+posx_matr;
-             //   bolas[num_bola]->setAY(-9.8);
-                bola_lanz1->setVX(-bola_lanz1->getVX());
-                bola_lanz1->setVY(-bola_lanz1->getVY());
-                bola_lanz1->setAX(0);
-                bola_lanz1->setAY(0);
-                cout<<"Reconoce el 6"<<endl;
+                                 }
+             }
 
 
-                            }
+             if(bola_lanz1->getColor()=="yellow"){
+                 cout<<"Si reconoce el color. "<<endl;
+                 cout<<"numero de la matriz: "<<matriz1[posy_matr][(posx_matr*2)];
+                 if(matriz1[posy_matr][(posx_matr*2)]==2){
 
-        }
+                     num_bola=48*posy_matr+posx_matr;
+                  //   bolas[num_bola]->setAY(-9.8);
+                     bola_lanz1->setVX(-bola_lanz1->getVX());
+                     bola_lanz1->setVY(-bola_lanz1->getVY());
+                     bola_lanz1->setAX(0);
+                     bola_lanz1->setAY(0);
+                     cout<<"Reconoce el 6"<<endl;
+
+                     puntuacion++;
+
+                                 }
+             }
+
+
+             if(bola_lanz1->getColor()=="green"){
+                 cout<<"Si reconoce el color. "<<endl;
+                 cout<<"numero de la matriz: "<<matriz1[posy_matr][(posx_matr*2)];
+                 if(matriz1[posy_matr][(posx_matr*2)]==3){
+
+                     num_bola=48*posy_matr+posx_matr;
+                  //   bolas[num_bola]->setAY(-9.8);
+                     bola_lanz1->setVX(-bola_lanz1->getVX());
+                     bola_lanz1->setVY(-bola_lanz1->getVY());
+                     bola_lanz1->setAX(0);
+                     bola_lanz1->setAY(0);
+                     cout<<"Reconoce el 6"<<endl;
+
+                     puntuacion++;
+
+                                 }
+             }
+
+            // ui->lcdNumber->display(puntuacion);
+
+
+             if(bola_lanz1->getColor()=="cyan"){
+                 cout<<"Si reconoce el color. "<<endl;
+                 cout<<"numero de la matriz: "<<matriz1[posy_matr][(posx_matr*2)];
+                 if(matriz1[posy_matr][(posx_matr*2)]==4){
+
+                     num_bola=48*posy_matr+posx_matr;
+                  //   bolas[num_bola]->setAY(-9.8);
+                     bola_lanz1->setVX(-bola_lanz1->getVX());
+                     bola_lanz1->setVY(-bola_lanz1->getVY());
+                     bola_lanz1->setAX(0);
+                     bola_lanz1->setAY(0);
+                     cout<<"Reconoce el 6"<<endl;
+
+                     puntuacion++;
+
+                                 }
+             }
+
+
+             if(bola_lanz1->getColor()=="red"){
+                 cout<<"Si reconoce el color. "<<endl;
+                 cout<<"numero de la matriz: "<<matriz1[posy_matr][(posx_matr*2)];
+                 if(matriz1[posy_matr][(posx_matr*2)]==5){
+
+                     num_bola=48*posy_matr+posx_matr;
+                  //   bolas[num_bola]->setAY(-9.8);
+                     bola_lanz1->setVX(-bola_lanz1->getVX());
+                     bola_lanz1->setVY(-bola_lanz1->getVY());
+                     bola_lanz1->setAX(0);
+                     bola_lanz1->setAY(0);
+                     cout<<"Reconoce el 6"<<endl;
+
+                     puntuacion++;
+
+                                 }
+             }
+
+
+             if(bola_lanz1->getColor()=="magenta"){
+                 cout<<"Si reconoce el color. "<<endl;
+                 cout<<"numero de la matriz: "<<matriz1[posy_matr][(posx_matr*2)];
+                 if(matriz1[posy_matr][(posx_matr*2)]==6){
+
+                     num_bola=48*posy_matr+posx_matr;
+                  //   bolas[num_bola]->setAY(-9.8);
+                     bola_lanz1->setVX(-bola_lanz1->getVX());
+                     bola_lanz1->setVY(-bola_lanz1->getVY());
+                     bola_lanz1->setAX(0);
+                     bola_lanz1->setAY(0);
+                     cout<<"Reconoce el 6"<<endl;
+
+                     puntuacion++;
+
+
+                                 }
+             }
+
+
+
 
         actualiza=true;
-
 
         }
 /////
@@ -778,3 +857,5 @@ void MainWindow::on_Salir_clicked()
     this->close();
     timer->stop();
 }
+
+
