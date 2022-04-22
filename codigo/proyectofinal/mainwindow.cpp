@@ -1,3 +1,4 @@
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -26,12 +27,17 @@ MainWindow::MainWindow(QWidget *parent)
     moverP=false;
     resorte=true;
     crear_bola_lanz1=false;
+    actualiza=false;
+    borra_bolas=false;
+
+
     timer=new QTimer();
 
     connect(timer,SIGNAL(timeout()),this,SLOT(juguemos()));
     connect(timer,SIGNAL(timeout()),this,SLOT(crear_bola_lanzada()));
+    connect(timer,SIGNAL(timeout()),this,SLOT(Actualizar()));
 
-    timer->start(10);
+   // timer->start(33);
 
     scene=new QGraphicsScene(x,y,1090,770);
 
@@ -58,15 +64,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_Nivel1_clicked()
 {
-        timer->start(10);
-    int matriz[6][48]={
-        {6, 0, 6, 0, 6, 0, 1, 0, 1, 0, 4, 0, 4, 0, 5, 0, 5, 0, 6, 0, 6, 0, 6, 0, 6, 0, 6, 0, 6, 0, 6, 0, 5, 0, 5, 0, 4, 0, 4, 0, 1, 0, 1, 0, 6, 0, 6, 0},
-        {0, 6, 0, 6, 0, 5, 0, 1, 0, 1, 0, 4, 0, 4, 0, 5, 0, 5, 0, 6, 0, 6, 0, 6, 0, 6, 0, 6, 0, 6, 0, 5, 0, 5, 0, 4, 0, 4, 0, 1, 0, 1, 0, 5, 0, 6, 0, 6},
-        {6, 0, 6, 0, 5, 0, 2, 0, 2, 0, 2, 0, 4, 0, 4, 0, 5, 0, 5, 0, 6, 0, 6, 0, 6, 0, 6, 0, 6, 0, 5, 0, 5, 0, 4, 0, 4, 0, 2, 0, 2, 0, 2, 0, 5, 0, 6, 0},
-        {0, 6, 0, 5, 0, 5, 0, 2, 0, 2, 0, 2, 0, 4, 0, 4, 0, 5, 0, 5, 0, 6, 0, 6, 0, 6, 0, 6, 0, 5, 0, 5, 0, 4, 0, 4, 0, 2, 0, 2, 0, 2, 0, 5, 0, 5, 0, 6},
-        {6, 0, 5, 0, 5, 0, 3, 0, 3, 0, 3, 0, 3, 0, 4, 0, 4, 0, 5, 0, 5, 0, 6, 0, 6, 0, 6, 0, 5, 0, 5, 0, 4, 0, 4, 0, 3, 0, 3, 0, 3, 0, 3, 0, 5, 0, 5, 0},
-        {0, 5, 0, 5, 0, 5, 0, 3, 0, 3, 0, 3, 0, 3, 0, 4, 0, 4, 0, 5, 0, 5, 0, 6, 0, 6, 0, 5, 0, 5, 0, 4, 0, 4, 0, 3, 0, 3, 0, 3, 0, 3, 0, 5, 0, 5, 0, 5}
-     };
+        timer->start(33);
+
 
     ui->graphicsView->setBackgroundBrush(Qt::darkGreen);
     ui->graphicsView->setScene(scene);
@@ -89,42 +88,42 @@ void MainWindow::on_Nivel1_clicked()
     for(int f=0; f<6; f++){
         for(int c=0; c<48; c++){
 
-            if(matriz[f][c]==1){
+            if(matriz1[f][c]==1){
 
                 bolas[p]= new esferas(75, 90, 0, 0, 0, 0, "blue");
                 bolas[p]->setPos((c*20),(f*35));
                 scene->addItem(bolas[p]);
             }
 
-            if(matriz[f][c]==2){
+            if(matriz1[f][c]==2){
 
                 bolas[p]= new esferas(75, 90, 0, 0, 0, 0, "yellow");
                 bolas[p]->setPos((c*20),(f*35));
                 scene->addItem(bolas[p]);
             }
 
-            if(matriz[f][c]==3){
+            if(matriz1[f][c]==3){
 
                 bolas[p]= new esferas(75, 90, 0, 0, 0, 0, "green");
                 bolas[p]->setPos((c*20),(f*35));
                 scene->addItem(bolas[p]);
             }
 
-            if(matriz[f][c]==4){
+            if(matriz1[f][c]==4){
 
                 bolas[p]= new esferas(75, 90, 0, 0, 0, 0, "cyan");
                 bolas[p]->setPos((c*20),(f*35));
                 scene->addItem(bolas[p]);
             }
 
-            if(matriz[f][c]==5){
+            if(matriz1[f][c]==5){
 
                 bolas[p]= new esferas(75, 90, 0, 0, 0, 0, "red");
                 bolas[p]->setPos((c*20),(f*35));
                 scene->addItem(bolas[p]);
             }
 
-            if(matriz[f][c]==6){
+            if(matriz1[f][c]==6){
 
                 bolas[p]= new esferas(75, 90, 0, 0, 0, 0, "magenta");
                 bolas[p]->setPos((c*20),(f*35));
@@ -144,11 +143,9 @@ void MainWindow::on_Nivel1_clicked()
     scene->addItem(centro);
 //    barra2->setBrush(Qt::yellow);
 
-    cout<<"crear_bola_lanz1: "<<crear_bola_lanz1<<endl;
 
     crear_bola_lanz1=true;
 
-    cout<<"crear_bola_lanz1: "<<crear_bola_lanz1<<endl;
 
 
   //  juguemos();
@@ -157,10 +154,7 @@ void MainWindow::on_Nivel1_clicked()
 
 void MainWindow::crear_bola_lanzada(){
 
-    cout<<"No ha entrado a la creación de la bola lanzada."<<endl;
     if(crear_bola_lanz1){
-
-        cout<<"Entró a la creación de la bola lanzada."<<endl;
 
         int aleat=1+rand()%(6);
 
@@ -199,36 +193,71 @@ void MainWindow::crear_bola_lanzada(){
     }
 }
 
+void MainWindow::Actualizar(){
+
+    if(actualiza){
+
+        int i=0, j=0,r=0;
+
+    //    for (r=0 ; r<5 ; r++)
+        //{
+            bola_lanz1->aceleracion();
+            bola_lanz1->velocidades();
+            bola_lanz1->posiciones();
+       // }
+
+        actualiza=false;
+    }
+}
+
 void MainWindow::juguemos(){
 
 
-    int o=0;
-
     double posi=0;
+
+
+    //for(r=0; r<20; r++){
     if(moverA)
     {
         bola_lanz1->setX(bola_lanz1->getX()-2.0);
         posi=bola_lanz1->getX();
-        cout<<"posicion en x con A: "<<posi<<endl;
+        bola_lanz1->setVX(0);
+        bola_lanz1->setVY(0);
+        bola_lanz1->setAX(0);
+        bola_lanz1->setAY(0);
+        bola_lanz1->setY(bola_lanz1->getY());
+        actualiza=true;
     }
 
     if(moverD)
     {
         bola_lanz1->setX(bola_lanz1->getX()+2.0);
         posi=bola_lanz1->getX();
-        cout<<"posicion en x con D: "<<posi<<endl;
+        bola_lanz1->setVX(0);
+        bola_lanz1->setVY(0);
+        bola_lanz1->setAX(0);
+        bola_lanz1->setAY(0);
+        bola_lanz1->setY(bola_lanz1->getY());
     }
     if(moverS)
     {
         bola_lanz1->setY(bola_lanz1->getY()-2.0);
         posi=bola_lanz1->getY();
-        cout<<"posicion en x con S: "<<posi<<endl;
+        bola_lanz1->setVX(0);
+        bola_lanz1->setVY(0);
+        bola_lanz1->setAX(0);
+        bola_lanz1->setAY(0);
+        bola_lanz1->setX(bola_lanz1->getX());
     }
     if(moverZ)
     {
         bola_lanz1->setY(bola_lanz1->getY()+2.0);
         posi=bola_lanz1->getY();
-        cout<<"posicion en x con Zd: "<<posi<<endl;
+        bola_lanz1->setVX(0);
+        bola_lanz1->setVY(0);
+        bola_lanz1->setAX(0);
+        bola_lanz1->setAY(0);
+        bola_lanz1->setX(bola_lanz1->getX());
     }
 
     if(moverP){
@@ -246,15 +275,17 @@ void MainWindow::juguemos(){
         bola_lanz1->setVY(0);
         resorte=false;
         posi=bola_lanz1->getX();
-        cout<<"posicion en x: "<<posi<<endl;
         }
 
+        actualiza=true;
+/*
+        for(int i=0; i<5; i++){
         bola_lanz1->aceleracion();
         bola_lanz1->velocidades();
         bola_lanz1->posiciones();
-
+        }
+*/
         posi=bola_lanz1->getX();
-        cout<<"posicion en x: "<<posi<<endl;
 
 
         //Choque elástico con las barras
@@ -268,9 +299,10 @@ void MainWindow::juguemos(){
         {
             bola_lanz1->setVX(-bola_lanz1->getVX());
         }
-/*
+
         //Choque con las bolas
-        for(o=0; o<144; o++){
+        /*
+        for(o=0; o<900; o++){
             if(bola_lanz1->collidesWithItem(bolas[o]))
             {
                 bola_lanz1->setAX(0);
@@ -279,37 +311,100 @@ void MainWindow::juguemos(){
                 bola_lanz1->setVY(0);
                 }
             }
+        */
+
+        ///Choque
+        ///
+        double posx= bola_lanz1->getX();
+        double posy= bola_lanz1->getY();
+        int posx_matr= 0;
+        int posy_matr= 0;
+        int num_bola= 0;
+        string color1;
+        string color2;
+
+        cout<<"posicion en y: "<<posy<<endl;
+        cout<<"posicion en y de la matriz: "<<posy_matr<<endl;
+
+
+        if(posy<280){
+            posx_matr= ((posx-75)/40);
+            posy_matr= ((posy-90)/35);
+
+            cout<<"Estamos dentro!!!!"<<endl;
+             cout<<"posx_matr"<<posx_matr<<endl;
+              cout<<"posy_matr"<<posy_matr<<endl;
+
+              //bola_lanz1->setColor("cyan");
+
+
+
+              num_bola=24*posy_matr+posx_matr;
+
+              cout<<"num_bola: "<<num_bola<<endl;
+
+             color1=bola_lanz1->getColor();
+             cout<<"color1"<<color1<<endl;
+
+          /*    color2=bolas[num_bola]->getColor();
+              cout<<"color2"<<color2<<endl;
 */
+/*
+              if(bola_lanz1->getColor()==bolas[num_bola]->getColor()){
+                  cout<<"Reconoce los colores"<<endl;
+                 bolas[num_bola]->setAY(-9.8);
+                  bola_lanz1->setX(0);
+                  bola_lanz1->setY(0);
+                  bola_lanz1->setVX(0);
+                  bola_lanz1->setVY(0);
+                  bola_lanz1->setAX(0);
+                  bola_lanz1->setAY(-1);
+                  cout<<"Los colores son iguales!!"<<endl;
+              }
+*/
+
+/*
+              if(bola_lanz1->getColor()=="blue"){
+            if(matriz1[posy_matr][posx_matr]==1){
+                num_bola=48*posy_matr+posx_matr;
+            }
+
+        }
+*/
+        if(bola_lanz1->getColor()=="magenta"){
+            cout<<"Si reconoce el color. "<<endl;
+            cout<<"numero de la matriz: "<<matriz1[posy_matr][(posx_matr*2)-1];
+            if(matriz1[posy_matr][(posx_matr*2)]==6){
+
+                num_bola=48*posy_matr+posx_matr;
+             //   bolas[num_bola]->setAY(-9.8);
+                bola_lanz1->setVX(-bola_lanz1->getVX());
+                bola_lanz1->setVY(-bola_lanz1->getVY());
+                bola_lanz1->setAX(0);
+                bola_lanz1->setAY(0);
+                cout<<"Reconoce el 6"<<endl;
+
+
+                            }
+
+        }
+
+        actualiza=true;
+
+
+        }
+/////
+
+
+        choca=true;
+
         //Si bola lanzada sale del tablero, que vuelva a la posición inicial con los parámetros iniciales
         if(900<bola_lanz1->getY() || bola_lanz1->getY()<-20){
             //Inicio: bola:lanz1(545, 650)
             crear_bola_lanz1=true;
             moverP=false;
         }
-
-        //Choque con las bolas
-      /*  for(int o=0; o<144; o++){
-            if(bola_lanz1->collidesWithItem(bolas[o]))
-            {
-                moverP=false;
-                if(bolas[o]->isVisible()){
-                    bolas[o]->hide();
-                }
-            }
-            }
-*/
-
-        if(moverA){
-            moverP=false;
-        }
-
-
-        }
-
-
-   // }
-
-
+    }
 /*
     if(kbhit()){
         char tecla= getch();
@@ -322,20 +417,70 @@ void MainWindow::juguemos(){
         //gotoxy(x,y);printf("*");
     }
 */
+  //  }
+}
 
+void MainWindow::Chocar(){
+
+    /*
+    if(choca){
+        double posx= bola_lanz1->getX();
+        double posy= bola_lanz1->getY();
+        int posx_matr= 0;
+        int posy_matr= 0;
+        int num_bola= 0;
+
+        cout<<"posicion en y: "<<posy<<endl;
+        cout<<"posicion en y de la matriz: "<<posy_matr<<endl;
+
+
+        if(posy<165){
+            posx_matr= (posx/35)-90;
+            posy_matr= (posy/35)-90;
+        }
+
+        if(bola_lanz1->getColor()=="blue"){
+            if(matriz1[posy_matr][posx_matr]==1){
+                num_bola=48*posy_matr+posx_matr;
+                bolas[num_bola]->setAY(-9.8);
+                bola_lanz1->setX(0);
+                bola_lanz1->setY(0);
+                bola_lanz1->setVX(0);
+                bola_lanz1->setVY(0);
+                bola_lanz1->setAX(0);
+                bola_lanz1->setAY(-1);
+            }
+
+        }
+
+
+        if(bola_lanz1->getColor()=="magenta"){
+            if(matriz1[posy_matr][posx_matr]==6){
+                num_bola=48*posy_matr+posx_matr;
+                bolas[num_bola]->setAY(-9.8);
+                bola_lanz1->setX(0);
+                bola_lanz1->setY(0);
+                bola_lanz1->setVX(0);
+                bola_lanz1->setVY(0);
+                bola_lanz1->setAX(0);
+                bola_lanz1->setAY(-1);
+            }
+
+        }
+
+
+        if(bola_lanz1->getX())
+
+
+
+        choca=false;
+    }
+    */
 }
 
 void MainWindow::on_Nivel2_clicked()
 {
-    timer->start(10);
-    int matriz[6][48]={
-        {1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 6, 0, 5, 0, 4, 0, 3, 0, 2, 0, 1, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 6, 0, 5, 0, 4, 0, 3, 0, 2, 0, 1, 0},
-        {0, 6, 0, 5, 0, 4, 0, 3, 0, 2, 0, 1, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 6, 0, 5, 0, 4, 0, 3, 0, 2, 0, 1, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6},
-        {1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 6, 0, 5, 0, 4, 0, 3, 0, 2, 0, 1, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 6, 0, 5, 0, 4, 0, 3, 0, 2, 0, 1, 0},
-        {0, 6, 0, 5, 0, 4, 0, 3, 0, 2, 0, 1, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 6, 0, 5, 0, 4, 0, 3, 0, 2, 0, 1, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6},
-        {1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 6, 0, 5, 0, 4, 0, 3, 0, 2, 0, 1, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 6, 0, 5, 0, 4, 0, 3, 0, 2, 0, 1, 0},
-        {0, 6, 0, 5, 0, 4, 0, 3, 0, 2, 0, 1, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 6, 0, 5, 0, 4, 0, 3, 0, 2, 0, 1, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6}
-     };
+    timer->start(33);
 
 
     ui->graphicsView->setBackgroundBrush(Qt::darkGreen);
@@ -359,42 +504,42 @@ void MainWindow::on_Nivel2_clicked()
     for(int f=0; f<6; f++){
         for(int c=0; c<48; c++){
 
-            if(matriz[f][c]==1){
+            if(matriz2[f][c]==1){
 
                 bolas[p]= new esferas(75, 90, 0, 0, 0, 0, "blue");
                 bolas[p]->setPos((c*20),(f*35));
                 scene->addItem(bolas[p]);
             }
 
-            if(matriz[f][c]==2){
+            if(matriz2[f][c]==2){
 
                 bolas[p]= new esferas(75, 90, 0, 0, 0, 0, "yellow");
                 bolas[p]->setPos((c*20),(f*35));
                 scene->addItem(bolas[p]);
             }
 
-            if(matriz[f][c]==3){
+            if(matriz2[f][c]==3){
 
                 bolas[p]= new esferas(75, 90, 0, 0, 0, 0, "green");
                 bolas[p]->setPos((c*20),(f*35));
                 scene->addItem(bolas[p]);
             }
 
-            if(matriz[f][c]==4){
+            if(matriz2[f][c]==4){
 
                 bolas[p]= new esferas(75, 90, 0, 0, 0, 0, "cyan");
                 bolas[p]->setPos((c*20),(f*35));
                 scene->addItem(bolas[p]);
             }
 
-            if(matriz[f][c]==5){
+            if(matriz2[f][c]==5){
 
                 bolas[p]= new esferas(75, 90, 0, 0, 0, 0, "red");
                 bolas[p]->setPos((c*20),(f*35));
                 scene->addItem(bolas[p]);
             }
 
-            if(matriz[f][c]==6){
+            if(matriz2[f][c]==6){
 
                 bolas[p]= new esferas(75, 90, 0, 0, 0, 0, "magenta");
                 bolas[p]->setPos((c*20),(f*35));
@@ -410,30 +555,20 @@ void MainWindow::on_Nivel2_clicked()
 
 void MainWindow::on_Nivel3_clicked()
 {
-    timer->start(10);
-
-    int matriz[6][48]={
-        {1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 6, 0, 5, 0, 4, 0, 3, 0, 2, 0, 1, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 6, 0, 5, 0, 4, 0, 3, 0, 2, 0, 1, 0},
-        {0, 6, 0, 5, 0, 4, 0, 3, 0, 2, 0, 1, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 6, 0, 5, 0, 4, 0, 3, 0, 2, 0, 1, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6},
-        {1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 6, 0, 5, 0, 4, 0, 3, 0, 2, 0, 1, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 6, 0, 5, 0, 4, 0, 3, 0, 2, 0, 1, 0},
-        {0, 6, 0, 5, 0, 4, 0, 3, 0, 2, 0, 1, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 6, 0, 5, 0, 4, 0, 3, 0, 2, 0, 1, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6},
-        {1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 6, 0, 5, 0, 4, 0, 3, 0, 2, 0, 1, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 6, 0, 5, 0, 4, 0, 3, 0, 2, 0, 1, 0},
-        {0, 6, 0, 5, 0, 4, 0, 3, 0, 2, 0, 1, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 6, 0, 5, 0, 4, 0, 3, 0, 2, 0, 1, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6}
-    };
-
+    timer->start(33);
 
     int y=0;
     for(int f=0; f<6; f=f+2){
         for(int c=0; c<48; c=c+2){
             y=1+rand()%(6);
-            matriz[f][c]=y;
+            matriz1[f][c]=y;
         }
      }
 
     for(int f=1; f<6; f=f+2){
         for(int c=1; c<48; c=c+2){
             y=1+rand()%(6);
-            matriz[f][c]=y;
+            matriz1[f][c]=y;
         }
     }
 
@@ -458,42 +593,42 @@ void MainWindow::on_Nivel3_clicked()
     for(int f=0; f<6; f++){
         for(int c=0; c<48; c++){
 
-            if(matriz[f][c]==1){
+            if(matriz1[f][c]==1){
 
                 bolas[p]= new esferas(75, 90, 0, 0, 0, 0, "blue");
                 bolas[p]->setPos((c*20),(f*35));
                 scene->addItem(bolas[p]);
             }
 
-            if(matriz[f][c]==2){
+            if(matriz1[f][c]==2){
 
                 bolas[p]= new esferas(75, 90, 0, 0, 0, 0, "yellow");
                 bolas[p]->setPos((c*20),(f*35));
                 scene->addItem(bolas[p]);
             }
 
-            if(matriz[f][c]==3){
+            if(matriz1[f][c]==3){
 
                 bolas[p]= new esferas(75, 90, 0, 0, 0, 0, "green");
                 bolas[p]->setPos((c*20),(f*35));
                 scene->addItem(bolas[p]);
             }
 
-            if(matriz[f][c]==4){
+            if(matriz1[f][c]==4){
 
                 bolas[p]= new esferas(75, 90, 0, 0, 0, 0, "cyan");
                 bolas[p]->setPos((c*20),(f*35));
                 scene->addItem(bolas[p]);
             }
 
-            if(matriz[f][c]==5){
+            if(matriz1[f][c]==5){
 
                 bolas[p]= new esferas(75, 90, 0, 0, 0, 0, "red");
                 bolas[p]->setPos((c*20),(f*35));
                 scene->addItem(bolas[p]);
             }
 
-            if(matriz[f][c]==6){
+            if(matriz1[f][c]==6){
 
                 bolas[p]= new esferas(75, 90, 0, 0, 0, 0, "magenta");
                 bolas[p]->setPos((c*20),(f*35));
@@ -508,6 +643,8 @@ void MainWindow::on_Nivel3_clicked()
 
 void MainWindow::on_Inicio1_clicked()
 {
+    timer->stop();
+
     ui->graphicsView->setBackgroundBrush(Qt::darkGray);
     ui->graphicsView->setScene(scene);
 
@@ -517,10 +654,34 @@ void MainWindow::on_Inicio1_clicked()
     barra2->hide();
 
     bola_lanz1->hide();
+    centro->hide();
 
+    borra_bolas=true;
+}
+
+
+void MainWindow::Borrar_bolas(){
+    if (borra_bolas){
+        timer->stop();
+
+        for(int i=0; i<144; i++){
+
+            bolas[i]->hide();
+        }
+        borra_bolas=false;
+    }
 /*
-    for(int v=0; v<312; v++){
-        bolas[v]->hide();
+    scene->removeItem(bolas[0]);
+    scene->removeItem(bolas[1]);
+    scene->removeItem(bolas[2]);
+    scene->removeItem(bolas[3]);
+*/
+
+    /*
+    for(int i=0; i<144; i++){
+
+
+        scene->removeItem(bolas[i]);
     }
     */
 }
@@ -564,7 +725,7 @@ void MainWindow::on_Inicio3_clicked()
 
 void MainWindow::keyPressEvent(QKeyEvent *ev)
 {
-            timer->start(10);
+    timer->start(33);
     if(ev->key()==Qt::Key_A)
     {
         moverA=true;
@@ -589,7 +750,7 @@ void MainWindow::keyPressEvent(QKeyEvent *ev)
 }
 
 void MainWindow::keyReleaseEvent(QKeyEvent *ev)
-{        timer->start(10);
+{        timer->start(33);
     if(ev->key()==Qt::Key_A)
     {
         moverA=false;
@@ -615,5 +776,5 @@ void MainWindow::keyReleaseEvent(QKeyEvent *ev)
 void MainWindow::on_Salir_clicked()
 {
     this->close();
-            timer->stop();
+    timer->stop();
 }
