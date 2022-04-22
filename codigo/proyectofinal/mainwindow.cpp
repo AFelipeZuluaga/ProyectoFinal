@@ -19,6 +19,9 @@ MainWindow::MainWindow(QWidget *parent)
     x = screenGeometry.x();
     y = screenGeometry.y();
 
+    ifstream fin;               //stream de entrada, lectura
+      ofstream fout;              //stream de salida, escritura
+
 
     moverA=false;
     moverS=false;
@@ -859,3 +862,20 @@ void MainWindow::on_Salir_clicked()
 }
 
 
+
+void MainWindow::on_Registrarse_clicked()
+{
+   // string usuario2=usuario;
+ /*   fstream k("registros.txt", fstream::out | fstream::binary);
+    k.write(usuario.c_str(), usuario.length());
+      k.close();
+*/
+}
+
+void MainWindow::on_lineEdit_returnPressed()
+{
+
+      //The line which should save the contents of the QLineEdit box:
+      usuario = ui->lineEdit->text();
+
+}

@@ -22,6 +22,9 @@
 #include <QDebug>
 #include <Windows.h>
 #include <conio.h>
+#include <fstream>
+#include <sstream>
+#include <string>
 
 
 QT_BEGIN_NAMESPACE
@@ -38,6 +41,10 @@ public:
 
 private slots:
 
+
+    void on_Registrarse_clicked();
+
+    void on_lineEdit_returnPressed();
 
 public slots:
     //void on_pushButton_clicked();
@@ -67,6 +74,8 @@ private:
     //QList <esferas*> bolas;
     esferas* bolas[900];
     QTimer *timer;
+    QString usuario;
+    string para_registrar;
 
         float x,y,ancho,alto;
 
