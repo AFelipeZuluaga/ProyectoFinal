@@ -89,6 +89,8 @@ private:
         bool crear_bola_lanz1;        
         bool actualiza;
         bool borra_bolas;
+        bool juega2;
+        bool juega1;
         bool choca;
          int matriz1[6][48]={
              {6, 0, 6, 0, 6, 0, 1, 0, 1, 0, 4, 0, 4, 0, 5, 0, 5, 0, 6, 0, 6, 0, 6, 0, 6, 0, 6, 0, 6, 0, 6, 0, 5, 0, 5, 0, 4, 0, 4, 0, 1, 0, 1, 0, 6, 0, 6, 0},

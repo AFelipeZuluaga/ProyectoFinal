@@ -70,7 +70,8 @@ void MainWindow::on_Nivel1_clicked()
 {
         timer->start(33);
 
-
+juega1=true;
+juega2=false;
     ui->graphicsView->setBackgroundBrush(Qt::darkGreen);
     ui->graphicsView->setScene(scene);
 
@@ -164,32 +165,38 @@ void MainWindow::crear_bola_lanzada(){
 
         if(aleat==1){
             bola_lanz1= new esfera_lanzada(545, 650, 0, 0, 0, 0, "blue");
+            bola_lanz1->setPos((0),(0));
             scene->addItem(bola_lanz1);
         }
 
         if(aleat==2){
             bola_lanz1= new esfera_lanzada(545, 650, 0, 0, 0, 0, "yellow");
+            bola_lanz1->setPos((0),(0));
             scene->addItem(bola_lanz1);
         }
 
         if(aleat==3){
             bola_lanz1= new esfera_lanzada(545, 650, 0, 0, 0, 0, "green");
+            bola_lanz1->setPos((0),(0));
             scene->addItem(bola_lanz1);
         }
 
         if(aleat==4){
             bola_lanz1= new esfera_lanzada(545, 650, 0, 0, 0, 0, "cyan");
+            bola_lanz1->setPos((0),(0));
             scene->addItem(bola_lanz1);
         }
 
         if(aleat==5){
             bola_lanz1= new esfera_lanzada(545, 650, 0, 0, 0, 0, "red");
+            bola_lanz1->setPos((0),(0));
             scene->addItem(bola_lanz1);
         }
 
         if(aleat==6){
 
             bola_lanz1= new esfera_lanzada(545, 650, 0, 0, 0, 0, "magenta");
+            bola_lanz1->setPos((0),(0));
             scene->addItem(bola_lanz1);
         }
 
@@ -307,6 +314,89 @@ void MainWindow::juguemos(){
             bola_lanz1->setVX(-bola_lanz1->getVX());
         }
 
+
+
+        //Si bola lanzada sale del tablero, que vuelva a la posición inicial con los parámetros iniciales
+        if(800<bola_lanz1->getY() || bola_lanz1->getY()<-20){
+            //Inicio: bola:lanz1(545, 650)
+            moverP=false;
+            cout<<"sobrepaso"<<endl;
+            //crear_bola_lanz1=true;
+            //crear_bola_lanzada();
+
+
+
+            int aleat=1+rand()%(6);
+
+            if(aleat==1){
+                bola_lanz1->setColor("blue");
+            }
+
+            if(aleat==2){
+                bola_lanz1->setColor("yellow");
+            }
+
+            if(aleat==3){
+                bola_lanz1->setColor("green");
+            }
+            if(aleat==4){
+                bola_lanz1->setColor("red");
+            }
+            if(aleat==5){
+                bola_lanz1->setColor("magenta");
+            }
+            if(aleat==6){
+                bola_lanz1->setColor("cyan");
+            }
+
+
+            bola_lanz1->setX(545);
+            bola_lanz1->setY(650);
+
+
+
+
+/*
+            //creamos la bola
+            int aleat=1+rand()%(6);
+
+            if(aleat==1){
+                bola_lanz1= new esfera_lanzada(545, 650, 0, 0, 0, 0, "blue");
+                scene->addItem(bola_lanz1);
+            }
+
+            if(aleat==2){
+                bola_lanz1= new esfera_lanzada(545, 650, 0, 0, 0, 0, "yellow");
+                scene->addItem(bola_lanz1);
+            }
+
+            if(aleat==3){
+                bola_lanz1= new esfera_lanzada(545, 650, 0, 0, 0, 0, "green");
+                scene->addItem(bola_lanz1);
+            }
+
+            if(aleat==4){
+                bola_lanz1= new esfera_lanzada(545, 650, 0, 0, 0, 0, "cyan");
+                scene->addItem(bola_lanz1);
+            }
+
+            if(aleat==5){
+                bola_lanz1= new esfera_lanzada(545, 650, 0, 0, 0, 0, "red");
+                scene->addItem(bola_lanz1);
+            }
+
+            if(aleat==6){
+
+                bola_lanz1= new esfera_lanzada(545, 650, 0, 0, 0, 0, "magenta");
+                scene->addItem(bola_lanz1);
+            }
+
+
+
+*/
+
+        }
+
         //Choque con las bolas
         /*
         for(o=0; o<900; o++){
@@ -334,6 +424,7 @@ void MainWindow::juguemos(){
         cout<<"posicion en y de la matriz: "<<posy_matr<<endl;
 
 
+
         if(posy<280){
             posx_matr= ((posx-75)/40);
             posy_matr= ((posy-90)/35);
@@ -353,6 +444,8 @@ void MainWindow::juguemos(){
              color1=bola_lanz1->getColor();
              cout<<"color1"<<color1<<endl;
 
+
+             if(juega1){
              if(bola_lanz1->getColor()=="blue"){
                  cout<<"Si reconoce el color. "<<endl;
                  cout<<"numero de la matriz: "<<matriz1[posy_matr][(posx_matr*2)];
@@ -408,6 +501,7 @@ void MainWindow::juguemos(){
 
                                  }
              }
+
 
             // ui->lcdNumber->display(puntuacion);
 
@@ -469,10 +563,134 @@ void MainWindow::juguemos(){
                                  }
              }
 
+}
 
 
+             if(juega2){
+             if(bola_lanz1->getColor()=="blue"){
+                 cout<<"Si reconoce el color. "<<endl;
+                 cout<<"numero de la matriz: "<<matriz2[posy_matr][(posx_matr*2)];
+                 if(matriz2[posy_matr][(posx_matr*2)]==1){
+
+                     num_bola=48*posy_matr+posx_matr;
+                  //   bolas[num_bola]->setAY(-9.8);
+                     bola_lanz1->setVX(-bola_lanz1->getVX());
+                     bola_lanz1->setVY(-bola_lanz1->getVY());
+                     bola_lanz1->setAX(0);
+                     bola_lanz1->setAY(0);
+                     cout<<"Reconoce el 6"<<endl;
+
+                     puntuacion++;
+
+                                 }
+             }
+
+
+             if(bola_lanz1->getColor()=="yellow"){
+                 cout<<"Si reconoce el color. "<<endl;
+                 cout<<"numero de la matriz: "<<matriz2[posy_matr][(posx_matr*2)];
+                 if(matriz2[posy_matr][(posx_matr*2)]==2){
+
+                     num_bola=48*posy_matr+posx_matr;
+                  //   bolas[num_bola]->setAY(-9.8);
+                     bola_lanz1->setVX(-bola_lanz1->getVX());
+                     bola_lanz1->setVY(-bola_lanz1->getVY());
+                     bola_lanz1->setAX(0);
+                     bola_lanz1->setAY(0);
+                     cout<<"Reconoce el 6"<<endl;
+
+                     puntuacion++;
+
+                                 }
+             }
+
+
+             if(bola_lanz1->getColor()=="green"){
+                 cout<<"Si reconoce el color. "<<endl;
+                 cout<<"numero de la matriz: "<<matriz2[posy_matr][(posx_matr*2)];
+                 if(matriz2[posy_matr][(posx_matr*2)]==3){
+
+                     num_bola=48*posy_matr+posx_matr;
+                  //   bolas[num_bola]->setAY(-9.8);
+                     bola_lanz1->setVX(-bola_lanz1->getVX());
+                     bola_lanz1->setVY(-bola_lanz1->getVY());
+                     bola_lanz1->setAX(0);
+                     bola_lanz1->setAY(0);
+                     cout<<"Reconoce el 6"<<endl;
+
+                     puntuacion++;
+
+                                 }
+             }
+
+
+            // ui->lcdNumber->display(puntuacion);
+
+
+             if(bola_lanz1->getColor()=="cyan"){
+                 cout<<"Si reconoce el color. "<<endl;
+                 cout<<"numero de la matriz: "<<matriz2[posy_matr][(posx_matr*2)];
+                 if(matriz2[posy_matr][(posx_matr*2)]==4){
+
+                     num_bola=48*posy_matr+posx_matr;
+                  //   bolas[num_bola]->setAY(-9.8);
+                     bola_lanz1->setVX(-bola_lanz1->getVX());
+                     bola_lanz1->setVY(-bola_lanz1->getVY());
+                     bola_lanz1->setAX(0);
+                     bola_lanz1->setAY(0);
+                     cout<<"Reconoce el 6"<<endl;
+
+                     puntuacion++;
+
+                                 }
+             }
+
+
+             if(bola_lanz1->getColor()=="red"){
+                 cout<<"Si reconoce el color. "<<endl;
+                 cout<<"numero de la matriz: "<<matriz2[posy_matr][(posx_matr*2)];
+                 if(matriz2[posy_matr][(posx_matr*2)]==5){
+
+                     num_bola=48*posy_matr+posx_matr;
+                  //   bolas[num_bola]->setAY(-9.8);
+                     bola_lanz1->setVX(-bola_lanz1->getVX());
+                     bola_lanz1->setVY(-bola_lanz1->getVY());
+                     bola_lanz1->setAX(0);
+                     bola_lanz1->setAY(0);
+                     cout<<"Reconoce el 6"<<endl;
+
+                     puntuacion++;
+
+                                 }
+             }
+
+
+             if(bola_lanz1->getColor()=="magenta"){
+                 cout<<"Si reconoce el color. "<<endl;
+                 cout<<"numero de la matriz: "<<matriz2[posy_matr][(posx_matr*2)];
+                 if(matriz2[posy_matr][(posx_matr*2)]==6){
+
+                     num_bola=48*posy_matr+posx_matr;
+                  //   bolas[num_bola]->setAY(-9.8);
+                     bola_lanz1->setVX(-bola_lanz1->getVX());
+                     bola_lanz1->setVY(-bola_lanz1->getVY());
+                     bola_lanz1->setAX(0);
+                     bola_lanz1->setAY(0);
+                     cout<<"Reconoce el 6"<<endl;
+
+                     puntuacion++;
+
+
+                                 }
+             }
+
+}
 
         actualiza=true;
+
+
+
+
 
         }
 /////
@@ -480,12 +698,6 @@ void MainWindow::juguemos(){
 
         choca=true;
 
-        //Si bola lanzada sale del tablero, que vuelva a la posición inicial con los parámetros iniciales
-        if(900<bola_lanz1->getY() || bola_lanz1->getY()<-20){
-            //Inicio: bola:lanz1(545, 650)
-            crear_bola_lanz1=true;
-            moverP=false;
-        }
     }
 /*
     if(kbhit()){
@@ -564,6 +776,8 @@ void MainWindow::on_Nivel2_clicked()
 {
     timer->start(33);
 
+    juega2=true;
+    juega1=false;
 
     ui->graphicsView->setBackgroundBrush(Qt::darkGreen);
     ui->graphicsView->setScene(scene);
@@ -633,6 +847,13 @@ void MainWindow::on_Nivel2_clicked()
     }
 
 
+
+    centro=new QGraphicsEllipseItem(525, 630, 40, 40);
+    scene->addItem(centro);
+//    barra2->setBrush(Qt::yellow);
+
+
+    crear_bola_lanz1=true;
 }
 
 void MainWindow::on_Nivel3_clicked()
@@ -721,6 +942,14 @@ void MainWindow::on_Nivel3_clicked()
         }
     }
 
+
+    centro=new QGraphicsEllipseItem(525, 630, 40, 40);
+    scene->addItem(centro);
+//    barra2->setBrush(Qt::yellow);
+
+
+    crear_bola_lanz1=true;
+
 }
 
 void MainWindow::on_Inicio1_clicked()
@@ -738,7 +967,13 @@ void MainWindow::on_Inicio1_clicked()
     bola_lanz1->hide();
     centro->hide();
 
-    borra_bolas=true;
+
+
+
+  /*  for(int o=0; o<144; o++){
+        bolas[o]->setX(1500);
+        bolas[o]->setY(1500);
+    }*/
 }
 
 
@@ -777,7 +1012,7 @@ void MainWindow::on_Inicio2_clicked()
     barra1->hide();
     barra2->hide();
 
-
+    centro->hide();
     bola_lanz1->hide();
 
     /*
@@ -797,6 +1032,7 @@ void MainWindow::on_Inicio3_clicked()
     barra2->hide();
 
     bola_lanz1->hide();
+    centro->hide();
 
     /*
         for(int v=0; v<312; v++){
@@ -828,6 +1064,7 @@ void MainWindow::keyPressEvent(QKeyEvent *ev)
     else if(ev->key()==Qt::Key_P)
     {
         moverP=true;
+        resorte=true;
     }
 }
 
